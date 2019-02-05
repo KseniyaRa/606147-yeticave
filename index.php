@@ -55,16 +55,16 @@ $user_name = 'Ксения';
         <ul class="promo__list">
             
             <?php
-            $categories = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
+            $promo = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
             
             $index = 0;
-            $num_count = count($categories);
+            $num_count = count($promo);
             ?>
             
             <?php while($index < $num_count): ?>
             
             <li class="promo__item promo__item--boards">
-                <a class="promo__link" href="pages/all-lots.html <?=$index;?>"><?=$categories[$index];?></a>
+                <a class="promo__link" href="pages/all-lots.html <?=$index;?>"><?=$promo[$index];?></a>
                 <?php $index = $index + 1; ?>
                 <?php endwhile; ?>
             </li>
@@ -74,19 +74,57 @@ $user_name = 'Ксения';
         <div class="lots__header">
             <h2>Открытые лоты</h2>
         </div>
+        
+        <?php
+        $lots = [
+            [ 'title' => '2014 Rossignol District Snowboard',
+              'category' => 'Доски и лыжи',
+              'price' => '10999',
+              'image' => '/img/lot-1.jpg'
+            ],
+            [ 'title' => 'DC Ply Mens 2016/2017 Snowboard',
+              'category' => 'Доски и лыжи',
+              'price' => '159999',
+              'image' => '/img/lot-2.jpg'
+            ],  
+            [ 'title' => 'Крепления Union Contact Pro 2015 года размер L/XL', 
+              'category' => 'Крепления',
+              'price' => '8000',
+              'image' => '/img/lot-3.jpg'
+            ],
+            [ 'title' => 'Ботинки для сноуборда DC Mutiny Charocal',
+              'category' => 'Ботинки',
+              'price' => '10999',
+              'image' => '/img/lot-4.jpg'
+            ], 
+            [ 'title' => 'Куртка для сноуборда DC Mutiny Charocal',
+              'category' => 'Одежда',
+              'price' => '7500',
+              'image' => '/img/lot-5.jpg'
+            ], 
+            [ 'title' => 'Маска Oakley Canopy',      
+              'category' => 'Разное', 
+              'price' => '5400',
+              'image' => '/img/lot-6.jpg'
+            ], 
+        ];
+        ?>
+        
         <ul class="lots__list">
-            <!--заполните этот список из массива с товарами-->
+            
+            <?php foreach ($lots as $key => $item): ?>
+            
             <li class="lots__item lot">
                 <div class="lot__image">
-                    <img src="" width="350" height="260" alt="">
+                    <img src="<?=$item['image'];?>" width="350" height="260" alt="">                    
                 </div>
                 <div class="lot__info">
-                    <span class="lot__category">Название категории</span>
-                    <h3 class="lot__title"><a class="text-link" href="pages/lot.html">Название товара</a></h3>
+                    <span class="lot__category"><?=$item['category'];?></span>                    
+                    <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?=$item['title'];?></a></h3>
                     <div class="lot__state">
                         <div class="lot__rate">
-                            <span class="lot__amount">Стартовая цена</span>
-                            <span class="lot__cost">цена<b class="rub">р</b></span>
+                            <span class="lot__amount"><?=$item['price'];?></span>
+                            <span class="lot__cost"><?=$item['price'];?><b class="rub">р</b></span>
                         </div>
                         <div class="lot__timer timer">
                             12:23
@@ -94,6 +132,8 @@ $user_name = 'Ксения';
                     </div>
                 </div>
             </li>
+            
+            <?php endforeach; ?>
         </ul>
     </section>
 </main>
@@ -102,9 +142,17 @@ $user_name = 'Ксения';
 <footer class="main-footer">
     <nav class="nav">
         <ul class="nav__list container">
-            <!--заполните этот список из массива категорий-->
+            <?php
+            $promo = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
+            
+            $index = 0;
+            $num_count = count($promo);
+            ?>
+            <?php while($index < $num_count): ?>
             <li class="nav__item">
-                <a href="pages/all-lots.html">Название категории</a>
+                <a href="pages/all-lots.html <?=$index;?>"><?=$promo[$index];?></a>
+                <?php $index = $index + 1; ?>
+                <?php endwhile; ?>
             </li>
         </ul>
     </nav>
