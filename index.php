@@ -1,7 +1,7 @@
 <?php
 $is_auth = rand(0, 1);
 
-$user_name = ''; // укажите здесь ваше имя
+$user_name = 'Ксения';
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -27,8 +27,22 @@ $user_name = ''; // укажите здесь ваше имя
         <a class="main-header__add-lot button" href="pages/add-lot.html">Добавить лот</a>
 
         <nav class="user-menu">
-
-        <!-- здесь должен быть PHP код для показа имени пользователя -->
+            
+            <?php if ($is_auth == 1): ?>
+            <div class="user-menu__logged">
+                <p><?php print($user_name); ?></p>
+            </div>
+            
+            <?php else: ?>
+            <ul class="user-menu__list">
+                <li class="user-menu__item">
+                    <a href="#">Регистрация</a>
+                </li>
+                <li class="user-menu__item">
+                    <a href="#">Вход</a>
+                </li>
+            </ul>
+            <?php endif; ?>
 
         </nav>
     </div>
@@ -39,9 +53,20 @@ $user_name = ''; // укажите здесь ваше имя
         <h2 class="promo__title">Нужен стафф для катки?</h2>
         <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
         <ul class="promo__list">
-            <!--заполните этот список из массива категорий-->
+            
+            <?php
+            $categories = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
+            
+            $index = 0;
+            $num_count = count($categories);
+            ?>
+            
+            <?php while($index < $num_count): ?>
+            
             <li class="promo__item promo__item--boards">
-                <a class="promo__link" href="pages/all-lots.html">Имя категории</a>
+                <a class="promo__link" href="pages/all-lots.html <?=$index;?>"><?=$categories[$index];?></a>
+                <?php $index = $index + 1; ?>
+                <?php endwhile; ?>
             </li>
         </ul>
     </section>
