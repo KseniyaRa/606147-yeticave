@@ -2,7 +2,13 @@
 $is_auth = rand(0, 1);
 
 $user_name = 'Ксения';
+
+$promo = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
+$index = 0;
+$num_count = count($promo);
 ?>
+
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -54,20 +60,13 @@ $user_name = 'Ксения';
         <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
         <ul class="promo__list">
             
-            <?php
-            $promo = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
-            
-            $index = 0;
-            $num_count = count($promo);
-            ?>
-            
-            <?php while($index < $num_count): ?>
+            <?php foreach($promo as $value => $index): ?>
             
             <li class="promo__item promo__item--boards">
-                <a class="promo__link" href="pages/all-lots.html <?=$index;?>"><?=$promo[$index];?></a>
-                <?php $index = $index + 1; ?>
-                <?php endwhile; ?>
+                <a class="promo__link" href="pages/all-lots.html <?=$value;?>"><?=$promo[$value];?></a>
             </li>
+            
+            <?php endforeach; ?>
         </ul>
     </section>
     <section class="lots">
@@ -142,18 +141,12 @@ $user_name = 'Ксения';
 <footer class="main-footer">
     <nav class="nav">
         <ul class="nav__list container">
-            <?php
-            $promo = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
-            
-            $index = 0;
-            $num_count = count($promo);
-            ?>
-            <?php while($index < $num_count): ?>
+                    
+            <?php foreach($promo as $value => $index): ?>
             <li class="nav__item">
-                <a href="pages/all-lots.html <?=$index;?>"><?=$promo[$index];?></a>
-                <?php $index = $index + 1; ?>
-                <?php endwhile; ?>
+                <a href="pages/all-lots.html <?=$value;?>"><?=$promo[$value];?></a> 
             </li>
+            <?php endforeach; ?>
         </ul>
     </nav>
     <div class="main-footer__bottom container">
