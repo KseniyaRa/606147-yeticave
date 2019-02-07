@@ -4,8 +4,46 @@ $is_auth = rand(0, 1);
 $user_name = 'Ксения';
 
 $promo = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
-$index = 0;
-$num_count = count($promo);
+$lots = [
+    ['title' => '2014 Rossignol District Snowboard',
+     'category' => 'Доски и лыжи',
+     'price' => '10999',
+     'image' => '/img/lot-1.jpg'
+    ],
+    ['title' => 'DC Ply Mens 2016/2017 Snowboard',
+     'category' => 'Доски и лыжи',
+     'price' => '159999',
+     'image' => '/img/lot-2.jpg'
+    ],  
+    ['title' => 'Крепления Union Contact Pro 2015 года размер L/XL', 
+     'category' => 'Крепления',
+     'price' => '8000',
+     'image' => '/img/lot-3.jpg'
+    ],
+    ['title' => 'Ботинки для сноуборда DC Mutiny Charocal',
+     'category' => 'Ботинки',
+     'price' => '10999',
+     'image' => '/img/lot-4.jpg'
+    ], 
+    ['title' => 'Куртка для сноуборда DC Mutiny Charocal',
+     'category' => 'Одежда',
+     'price' => '7500',
+     'image' => '/img/lot-5.jpg'
+    ], 
+    ['title' => 'Маска Oakley Canopy',
+     'category' => 'Разное', 
+     'price' => '5400',
+     'image' => '/img/lot-6.jpg'
+    ]
+];
+
+function formatSumRub ($price){
+    $price = ceil($price);
+    if ($price > 1000){
+    $price = number_format($price, 0, ' ', ' ');
+    }
+    $price = $price . '₽';
+    return $price;}
 ?>
 
 
@@ -73,42 +111,7 @@ $num_count = count($promo);
         <div class="lots__header">
             <h2>Открытые лоты</h2>
         </div>
-        
-        <?php
-        $lots = [
-            [ 'title' => '2014 Rossignol District Snowboard',
-              'category' => 'Доски и лыжи',
-              'price' => '10999',
-              'image' => '/img/lot-1.jpg'
-            ],
-            [ 'title' => 'DC Ply Mens 2016/2017 Snowboard',
-              'category' => 'Доски и лыжи',
-              'price' => '159999',
-              'image' => '/img/lot-2.jpg'
-            ],  
-            [ 'title' => 'Крепления Union Contact Pro 2015 года размер L/XL', 
-              'category' => 'Крепления',
-              'price' => '8000',
-              'image' => '/img/lot-3.jpg'
-            ],
-            [ 'title' => 'Ботинки для сноуборда DC Mutiny Charocal',
-              'category' => 'Ботинки',
-              'price' => '10999',
-              'image' => '/img/lot-4.jpg'
-            ], 
-            [ 'title' => 'Куртка для сноуборда DC Mutiny Charocal',
-              'category' => 'Одежда',
-              'price' => '7500',
-              'image' => '/img/lot-5.jpg'
-            ], 
-            [ 'title' => 'Маска Oakley Canopy',      
-              'category' => 'Разное', 
-              'price' => '5400',
-              'image' => '/img/lot-6.jpg'
-            ], 
-        ];
-        ?>
-        
+                
         <ul class="lots__list">
             
             <?php foreach ($lots as $key => $item): ?>
@@ -122,8 +125,8 @@ $num_count = count($promo);
                     <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?=$item['title'];?></a></h3>
                     <div class="lot__state">
                         <div class="lot__rate">
-                            <span class="lot__amount"><?=$item['price'];?></span>
-                            <span class="lot__cost"><?=$item['price'];?><b class="rub">р</b></span>
+                            <span class="lot__amount"><?=formatSumRub($item['price']);?></span>
+                            <span class="lot__cost"><?=formatSumRub($item['price']);?><b class="rub"></b></span>
                         </div>
                         <div class="lot__timer timer">
                             12:23
