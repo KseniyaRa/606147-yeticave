@@ -126,7 +126,7 @@ function formatSumRub ($price){
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount"><?=formatSumRub($item['price']);?></span>
-                            <span class="lot__cost"><?=formatSumRub($item['price']);?><b class="rub"></b></span>
+                            <span class="lot__cost"><?=formatSumRub($item['price']);?></span>
                         </div>
                         <div class="lot__timer timer">
                             12:23
