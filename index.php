@@ -33,8 +33,9 @@ $user_name = 'Ксения'; // укажите здесь ваше имя
             <div class="user-menu__logged">
                 <p><?php print($user_name); ?></p>
             </div>
-            
-            <?php else: ?>
+
+            <?php elseif ($is_auth != 1): ?>
+
             <ul class="user-menu__list">
                 <li class="user-menu__item">
                     <a href="#">Регистрация</a>
@@ -44,8 +45,6 @@ $user_name = 'Ксения'; // укажите здесь ваше имя
                 </li>
             </ul>
             <?php endif; ?>
-
-        <!-- здесь должен быть PHP код для показа имени пользователя -->
 
         </nav>
     </div>
