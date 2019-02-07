@@ -3,6 +3,7 @@ $is_auth = rand(0, 1);
 
 $user_name = 'Ксения'; // укажите здесь ваше имя
 ?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -32,7 +33,9 @@ $user_name = 'Ксения'; // укажите здесь ваше имя
             <div class="user-menu__logged">
                 <p><?php print($user_name); ?></p>
             </div>
+
             <?php elseif ($is_auth != 1): ?>
+
             <ul class="user-menu__list">
                 <li class="user-menu__item">
                     <a href="#">Регистрация</a>
@@ -42,7 +45,7 @@ $user_name = 'Ксения'; // укажите здесь ваше имя
                 </li>
             </ul>
             <?php endif; ?>
-            
+
         </nav>
     </div>
 </header>
