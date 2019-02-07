@@ -1,13 +1,13 @@
 <?php
 $is_auth = rand(0, 1);
 
+
 $user_name = 'Ксения';
 
 $promo = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
 $index = 0;
 $num_count = count($promo);
 ?>
-
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -38,8 +38,10 @@ $num_count = count($promo);
             <div class="user-menu__logged">
                 <p><?php print($user_name); ?></p>
             </div>
+
             
             <?php else: ?>
+
             <ul class="user-menu__list">
                 <li class="user-menu__item">
                     <a href="#">Регистрация</a>
