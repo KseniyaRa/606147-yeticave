@@ -1,6 +1,7 @@
 <?php
 $is_auth = rand(0, 1);
 
+
 $user_name = 'Ксения';
 
 require_once('functions.php');
@@ -13,6 +14,7 @@ $page_content = include_template('templates\index.php', ['content' => $content])
 $footer_content = include_template('footer.php', ['footer' => $footer]);
 
 
+
 $layout_content = include_template('layout.php', [
 	'content' => $page_content,
 	'title' => 'Главная',
@@ -21,5 +23,6 @@ $layout_content = include_template('layout.php', [
 
 print($layout_content);
 ?>
+
 
 
