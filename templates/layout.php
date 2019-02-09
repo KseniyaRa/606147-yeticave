@@ -1,5 +1,6 @@
 <?php
 require_once('data.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +49,7 @@ require_once('data.php');
 </header>
 
 <main class="container">
-    <?= $content; ?>   
+    <?= $content;?>   
 </main>
 </div>
 
