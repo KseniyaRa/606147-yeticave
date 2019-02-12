@@ -4,6 +4,7 @@ $is_auth = rand(0, 1);
 $user_name = 'Ксения';
 
 require_once('functions.php');
+require_once('data.php');
 
 $page_content = include_template('index.php', [ 
     'promo' => $promo,
