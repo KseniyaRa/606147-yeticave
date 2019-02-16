@@ -36,4 +36,4 @@ WHERE lot.id = 13;
 UPDATE `lot` SET `name`='new' WHERE `id`=13;
 
 /*получить список самых свежих ставок для лота по его идентификатору*/
-SELECT price FROM rate WHERE lot_id = 13;
+SELECT price FROM rate WHERE lot_id = 13 ORDER BY rate.date DESC;
