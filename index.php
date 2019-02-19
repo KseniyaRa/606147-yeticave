@@ -7,6 +7,27 @@ require_once('functions.php');
 require_once('data.php');
 require_once('init.php');
 
+//получаем открытые лоты
+$lots_sql_query = 'SELECT lot.name AS title, initial_price, image, /*цена*/ c.name 
+FROM lot
+JOIN category c
+ON lot.category_id = c.id
+ORDER BY lot.date DESC';
+
+$res = mysqli_query($con, $lots_sql_query);
+
+if ($res) {
+    $lots = mysqli_fetch_all($res, MYSQLI_ASSOC);
+}
+
+//получаем список категорий
+$sql = 'SELECT `id`, `name` FROM category';
+$result = mysqli_query($con, $sql);
+
+if ($result) {
+    $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
+
 $page_content = include_template('index.php', [ 
     'promo' => $promo,
     'lots' => $lots]
@@ -23,15 +44,6 @@ $layout_content = include_template('layout.php', [
 ]);
 
 print($layout_content);
-
-//получаем открытые лоты
-$lots_categories = get_mysql_data($con, 'SELECT * FROM category', []);
-
-$lots_sql_query = 'SELECT lot.name, initial_price, image, /*цена*/ c.name 
-FROM lot
-JOIN category c
-ON lot.category_id = c.id
-ORDER BY lot.date DESC';
 
 ?>
 
