@@ -6,6 +6,7 @@ $user_name = 'Ксения';
 require_once('functions.php');
 require_once('data.php');
 require_once('init.php');
+require_once('lot.php');
 
 //получаем открытые лоты
 $lots_sql_query = 'SELECT lot.name AS title, initial_price, image, /*цена*/ c.name 
