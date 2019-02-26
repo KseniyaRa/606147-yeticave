@@ -29,15 +29,18 @@ if ($result) {
     $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
+//главная страница с списком категорий и открытыми лотами
 $page_content = include_template('index.php', [ 
     'promo' => $promo,
     'lots' => $lots]
 );
 
+//список категорий из футера
 $footer_content = include_template('footer.php', [
     'promo' => $promo]
 );
 
+// "собираем" всю главную страницу
 $layout_content = include_template('layout.php', [
 	'content' => $page_content,
 	'title' => 'Главная',

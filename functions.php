@@ -1,4 +1,5 @@
 <?php
+//Функция-шаблонизатор
 function include_template($name, $data) {
     $name = 'templates/' . $name;
     $result = '';
@@ -16,6 +17,7 @@ function include_template($name, $data) {
     return $result;
 }
 
+//преобразование цены к нужному виду
 function formatSumRub ($price){
     $price = ceil($price);
     if ($price > 1000){
@@ -60,6 +62,7 @@ function db_get_prepare_stmt($con, $sql, $data = []) {
     return $stmt;
 }
 
+//показываем ошибки
 function show_error(&$content, $error) {
     $content = include_template('error.php', ['error' => $error]);
 }

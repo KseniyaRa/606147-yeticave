@@ -1,8 +1,35 @@
 <?php
+require_once('functions.php');
+require_once('data.php');
 require_once('init.php');
-require_once('lot.php');
 
-if (!$con) {
+
+//получаем список категорий
+$sql = 'SELECT `id`, `name` FROM category';
+$result = mysqli_query($con, $sql);
+
+if ($result) {
+    $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
+
+//отображаем список категорий
+$category = include_template('footer.php', [
+    'promo' => $promo]
+);
+
+//получаем название лота для заголовка страницы
+$title = 'SELECT lot.name AS title FROM lot'; 
+
+// "собираем" всю главную страницу
+$lot_content = include_template('lot.php', [
+	'category' => $category,
+	'title' => $title
+]);
+
+print($layout_content);
+
+
+/*if (!$con) {
     $error = mysqli_connect_error();
     show_error($content, $error);
 }
@@ -42,3 +69,4 @@ else {
         }
     }
 }
+*/
