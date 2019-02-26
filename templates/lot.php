@@ -46,8 +46,7 @@ require_once('functions.php');
       </ul>
     </nav>
     <section class="lot-item container">
-        <?php foreach ($lots as $key => $item): ?>
-      <h2><?=htmlspecialchars($item['title']);?></h2>
+        <h2><?=htmlspecialchars($title[0]['title'] );?></h2>
       <div class="lot-item__content">
         <div class="lot-item__left">
           <div class="lot-item__image">
@@ -152,7 +151,7 @@ require_once('functions.php');
           </div>
         </div>
       </div>
-        <?php endforeach; ?>
+   
     </section>
   </main>
 

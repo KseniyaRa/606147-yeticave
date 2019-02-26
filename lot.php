@@ -18,12 +18,16 @@ $category = include_template('footer.php', [
 );
 
 //получаем название лота для заголовка страницы
-$title = 'SELECT lot.name AS title FROM lot'; 
+$title = 'SELECT lot.name AS title FROM lot WHERE id = 13'; 
+$res = mysqli_query($con, $title);
+if ($res) {
+    $lot_title = mysqli_fetch_all($res, MYSQLI_ASSOC);
+}
 
-// "собираем" всю главную страницу
+// "собираем" всю станицу с лотом
 $lot_content = include_template('lot.php', [
 	'category' => $category,
-	'title' => $title
+	'title' => $lot_title
 ]);
 
 print($layout_content);
