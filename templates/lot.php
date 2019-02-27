@@ -53,16 +53,7 @@ require_once('functions.php');
             <img src="<?=$item['image'];?>" width="730" height="548" alt="">
           </div>
           <p class="lot-item__category">Категория: <span><?=htmlspecialchars($item['name']);?></span></p>
-          <p class="lot-item__description"><?=htmlspecialchars($item['description']);?>Легкий маневренный сноуборд, готовый дать жару в любом парке, растопив
-            снег
-            мощным щелчкоми четкими дугами. Стекловолокно Bi-Ax, уложенное в двух направлениях, наделяет этот
-            снаряд
-            отличной гибкостью и отзывчивостью, а симметричная геометрия в сочетании с классическим прогибом
-            кэмбер
-            позволит уверенно держать высокие скорости. А если к концу катального дня сил совсем не останется,
-            просто
-            посмотрите на Вашу доску и улыбнитесь, крутая графика от Шона Кливера еще никого не оставляла
-            равнодушным.</p>
+          <p class="lot-item__description"><?=htmlspecialchars($item['description']);?></p>
         </div>
         <div class="lot-item__right">
           <div class="lot-item__state">

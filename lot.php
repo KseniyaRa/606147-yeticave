@@ -17,13 +17,6 @@ $footer_content = include_template('footer.php', [
     'promo' => $promo]
 );
 
-//получаем название лота для заголовка страницы
-$title = 'SELECT lot.name AS title FROM lot WHERE id = 13'; 
-$res = mysqli_query($con, $title);
-if ($res) {
-    $lot_title = mysqli_fetch_all($res, MYSQLI_ASSOC);
-}
-
 // "собираем" всю станицу с лотом
 $lot_content = include_template('lot.php', [
 	'footer' => $footer_content,
@@ -33,8 +26,9 @@ $lot_content = include_template('lot.php', [
 print($lot_content);
 
 //проверяем существует ли id
-$id = mysqli_real_escape_string($con, $_GET['id']);
+
 if (isset($_GET['id'])) {
+    $id = mysqli_real_escape_string($con, $_GET['id']);
     $lot_id = intval($_GET['id']);
     $sql_lot = "SELECT lot.name AS title, date, description, image, initial_price, completion_date, step_rate, author, winner, c.name 
     FROM lot 
@@ -44,7 +38,7 @@ if (isset($_GET['id'])) {
 }
  
 else {
-    print('404 Страница не найдена');
+    header('Location: 404');
 }
 
 
