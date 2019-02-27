@@ -13,7 +13,7 @@ if ($result) {
 }
 
 //отображаем список категорий
-$category = include_template('footer.php', [
+$footer_content = include_template('footer.php', [
     'promo' => $promo]
 );
 
@@ -26,11 +26,26 @@ if ($res) {
 
 // "собираем" всю станицу с лотом
 $lot_content = include_template('lot.php', [
-	'category' => $category,
+	'footer' => $footer_content,
 	'title' => $lot_title
 ]);
 
-print($layout_content);
+print($lot_content);
+
+//проверяем существует ли id
+$id = mysqli_real_escape_string($con, $_GET['id']);
+if (isset($_GET['id'])) {
+    $lot_id = intval($_GET['id']);
+    $sql_lot = "SELECT lot.name AS title, date, description, image, initial_price, completion_date, step_rate, author, winner, c.name 
+    FROM lot 
+    JOIN category c
+    ON lot.category_id = c.id WHERE id = '$lot_id'";
+    $result = mysqli_prepare($con, $sql_lot);
+}
+ 
+else {
+    print('404 Страница не найдена');
+}
 
 
 /*if (!$con) {
