@@ -7,36 +7,36 @@ require_once('functions.php');
 <head>
   <meta charset="UTF-8">
   <title><?=$title;?></title>
-  <link href="../css/normalize.min.css" rel="stylesheet">
-  <link href="../css/style.css" rel="stylesheet">
+  <link href="css/normalize.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
 
 <div class="page-wrapper">
 
   <header class="main-header">
-    <div class="main-header__container container">
-      <h1 class="visually-hidden">YetiCave</h1>
-      <a class="main-header__logo" href="index.html">
-        <img src="img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
-      </a>
-      <form class="main-header__search" method="get" action="https://echo.htmlacademy.ru">
-        <input type="search" name="search" placeholder="Поиск лота">
-        <input class="main-header__search-btn" type="submit" name="find" value="Найти">
-      </form>
-      <a class="main-header__add-lot button" href="add-lot.html">Добавить лот</a>
-      <nav class="user-menu">
-        <ul class="user-menu__list">
-          <li class="user-menu__item">
-            <a href="sign-up.html">Регистрация</a>
-          </li>
-          <li class="user-menu__item">
-            <a href="login.html">Вход</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+  <div class="main-header__container container">
+    <h1 class="visually-hidden">YetiCave</h1>
+    <a class="main-header__logo" href="index.html">
+      <img src="img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
+    </a>
+    <form class="main-header__search" method="get" action="https://echo.htmlacademy.ru">
+      <input type="search" name="search" placeholder="Поиск лота">
+      <input class="main-header__search-btn" type="submit" name="find" value="Найти">
+    </form>
+    <a class="main-header__add-lot button" href="add-lot.html">Добавить лот</a>
+    <nav class="user-menu">
+      <ul class="user-menu__list">
+        <li class="user-menu__item">
+          <a href="sign-up.html">Регистрация</a>
+        </li>
+        <li class="user-menu__item">
+          <a href="login.html">Вход</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
   <main>
     <nav class="nav">
@@ -44,105 +44,68 @@ require_once('functions.php');
         <?=$footer;?>
       </ul>
     </nav>
-    <section class="lot-item container">
-        <h2><?=htmlspecialchars($title[0]['title'] );?></h2>
-      <div class="lot-item__content">
-        <div class="lot-item__left">
-          <div class="lot-item__image">
-            <img src="<?=$item['image'];?>" width="730" height="548" alt="">
-          </div>
-          <p class="lot-item__category">Категория: <span><?=htmlspecialchars($item['name']);?></span></p>
-          <p class="lot-item__description"><?=htmlspecialchars($item['description']);?></p>
+    <form class="form form--add-lot container form--invalid" action="https://echo.htmlacademy.ru" method="post"> <!-- form--invalid -->
+      <h2>Добавление лота</h2>
+      <div class="form__container-two">
+        <div class="form__item form__item--invalid"> <!-- form__item--invalid -->
+          <label for="lot-name">Наименование</label>
+          <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" required>
+          <span class="form__error">Введите наименование лота</span>
         </div>
-        <div class="lot-item__right">
-          <div class="lot-item__state">
-            <div class="lot-item__timer timer">
-              <?php
-                        $ts = time();
-                        $ts_midnight = strtotime('tomorrow');
-                        $secs_to_midnight = $ts_midnight - time();
-                        $hours = floor($secs_to_midnight / 3600);
-                        $minutes = floor(($secs_to_midnight % 3600) / 60);
-                        print("$hours:$minutes");
-                        ?>
-            </div>
-            <div class="lot-item__cost-state">
-              <div class="lot-item__rate">
-                <span class="lot-item__amount">Текущая цена</span>
-                <span class="lot-item__cost"><?=htmlspecialchars(formatSumRub($item['initial_price']));?></span>
-              </div>
-              <div class="lot-item__min-cost">
-                Мин. ставка <span>12 000 р</span>
-              </div>
-            </div>
-            <form class="lot-item__form" action="https://echo.htmlacademy.ru" method="post">
-              <p class="lot-item__form-item form__item form__item--invalid">
-                <label for="cost">Ваша ставка</label>
-                <input id="cost" type="text" name="cost" placeholder="12 000">
-                <span class="form__error">Введите наименование лота</span>
-              </p>
-              <button type="submit" class="button">Сделать ставку</button>
-            </form>
-          </div>
-          <div class="history">
-            <h3>История ставок (<span>10</span>)</h3>
-            <table class="history__list">
-              <tr class="history__item">
-                <td class="history__name">Иван</td>
-                <td class="history__price">10 999 р</td>
-                <td class="history__time">5 минут назад</td>
-              </tr>
-              <tr class="history__item">
-                <td class="history__name">Константин</td>
-                <td class="history__price">10 999 р</td>
-                <td class="history__time">20 минут назад</td>
-              </tr>
-              <tr class="history__item">
-                <td class="history__name">Евгений</td>
-                <td class="history__price">10 999 р</td>
-                <td class="history__time">Час назад</td>
-              </tr>
-              <tr class="history__item">
-                <td class="history__name">Игорь</td>
-                <td class="history__price">10 999 р</td>
-                <td class="history__time">19.03.17 в 08:21</td>
-              </tr>
-              <tr class="history__item">
-                <td class="history__name">Енакентий</td>
-                <td class="history__price">10 999 р</td>
-                <td class="history__time">19.03.17 в 13:20</td>
-              </tr>
-              <tr class="history__item">
-                <td class="history__name">Семён</td>
-                <td class="history__price">10 999 р</td>
-                <td class="history__time">19.03.17 в 12:20</td>
-              </tr>
-              <tr class="history__item">
-                <td class="history__name">Илья</td>
-                <td class="history__price">10 999 р</td>
-                <td class="history__time">19.03.17 в 10:20</td>
-              </tr>
-              <tr class="history__item">
-                <td class="history__name">Енакентий</td>
-                <td class="history__price">10 999 р</td>
-                <td class="history__time">19.03.17 в 13:20</td>
-              </tr>
-              <tr class="history__item">
-                <td class="history__name">Семён</td>
-                <td class="history__price">10 999 р</td>
-                <td class="history__time">19.03.17 в 12:20</td>
-              </tr>
-              <tr class="history__item">
-                <td class="history__name">Илья</td>
-                <td class="history__price">10 999 р</td>
-                <td class="history__time">19.03.17 в 10:20</td>
-              </tr>
-            </table>
-          </div>
+        <div class="form__item">
+          <label for="category">Категория</label>
+          <select id="category" name="category" required>
+            <option>Выберите категорию</option>
+            <option>Доски и лыжи</option>
+            <option>Крепления</option>
+            <option>Ботинки</option>
+            <option>Одежда</option>
+            <option>Инструменты</option>
+            <option>Разное</option>
+          </select>
+          <span class="form__error">Выберите категорию</span>
         </div>
       </div>
-   
-    </section>
+      <div class="form__item form__item--wide">
+        <label for="message">Описание</label>
+        <textarea id="message" name="message" placeholder="Напишите описание лота" required></textarea>
+        <span class="form__error">Напишите описание лота</span>
+      </div>
+      <div class="form__item form__item--file"> <!-- form__item--uploaded -->
+        <label>Изображение</label>
+        <div class="preview">
+          <button class="preview__remove" type="button">x</button>
+          <div class="preview__img">
+            <img src="img/avatar.jpg" width="113" height="113" alt="Изображение лота">
+          </div>
+        </div>
+        <div class="form__input-file">
+          <input class="visually-hidden" type="file" id="photo2" value="">
+          <label for="photo2">
+            <span>+ Добавить</span>
+          </label>
+        </div>
+      </div>
+      <div class="form__container-three">
+        <div class="form__item form__item--small">
+          <label for="lot-rate">Начальная цена</label>
+          <input id="lot-rate" type="number" name="lot-rate" placeholder="0" required>
+          <span class="form__error">Введите начальную цену</span>
+        </div>
+        <div class="form__item form__item--small">
+          <label for="lot-step">Шаг ставки</label>
+          <input id="lot-step" type="number" name="lot-step" placeholder="0" required>
+          <span class="form__error">Введите шаг ставки</span>
+        </div>
+        <div class="form__item">
+          <label for="lot-date">Дата окончания торгов</label>
+          <input class="form__input-date" id="lot-date" type="date" name="lot-date" required>
+          <span class="form__error">Введите дату завершения торгов</span>
+        </div>
+      </div>
+      <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
+      <button type="submit" class="button">Добавить лот</button>
+    </form>
   </main>
 
 </div>
@@ -150,7 +113,7 @@ require_once('functions.php');
 <footer class="main-footer">
   <nav class="nav">
     <ul class="nav__list container">
-      <?=$footer;?>  
+      <?=$footer;?>
     </ul>
   </nav>
   <div class="main-footer__bottom container">

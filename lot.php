@@ -3,14 +3,30 @@ require_once('functions.php');
 require_once('data.php');
 require_once('init.php');
 
+//проверяем существует ли id
+if (isset($_GET['id'])) {
+    $id = mysqli_real_escape_string($con, $_GET['id']);
+    $lot_id = intval($_GET['id']);
+    $sql_lot = "SELECT lot.name AS title, date, description, image, initial_price, completion_date, step_rate, author, winner, c.name 
+    FROM lot 
+    JOIN category c
+    ON lot.category_id = c.id WHERE id = '?'";
+    $lot = db_get_prepare_stmt($con, $sql_lot, [$lot_id]);
+    $result = mysqli_fetch_all($con, $sql_lot);
+    
+    if ($result) {
+    $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+}
+else {
+    header('Location: 404');
+}
 
 //получаем список категорий
 $sql = 'SELECT `id`, `name` FROM category';
 $result = mysqli_query($con, $sql);
 
-if ($result) {
-    $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
-}
+
 
 //отображаем список категорий
 $footer_content = include_template('footer.php', [
@@ -24,22 +40,6 @@ $lot_content = include_template('lot.php', [
 ]);
 
 print($lot_content);
-
-//проверяем существует ли id
-
-if (isset($_GET['id'])) {
-    $id = mysqli_real_escape_string($con, $_GET['id']);
-    $lot_id = intval($_GET['id']);
-    $sql_lot = "SELECT lot.name AS title, date, description, image, initial_price, completion_date, step_rate, author, winner, c.name 
-    FROM lot 
-    JOIN category c
-    ON lot.category_id = c.id WHERE id = '$lot_id'";
-    $result = mysqli_prepare($con, $sql_lot);
-}
- 
-else {
-    header('Location: 404');
-}
 
 
 /*if (!$con) {
