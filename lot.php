@@ -12,31 +12,27 @@ if (isset($_GET['id'])) {
     JOIN category c
     ON lot.category_id = c.id WHERE id = '?'";
     $lot = db_get_prepare_stmt($con, $sql_lot, [$lot_id]);
-    $result = mysqli_fetch_all($con, $sql_lot);
-    
+        
+    $sql = 'SELECT `id`, `name` FROM category';
+    $result = mysqli_query($con, $sql);
     if ($result) {
-    $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 }
 else {
     header('Location: 404');
 }
 
-//получаем список категорий
-$sql = 'SELECT `id`, `name` FROM category';
-$result = mysqli_query($con, $sql);
-
-
-
 //отображаем список категорий
 $footer_content = include_template('footer.php', [
-    'promo' => $promo]
+    'promo' => $categories]
 );
 
 // "собираем" всю станицу с лотом
 $lot_content = include_template('lot.php', [
-	'footer' => $footer_content,
-	'title' => $lot_title
+    'footer' => $footer_content,
+    'title' => $lot_title,
+    'item' => $lot //в шаблоне выводится как item поэтому так 
 ]);
 
 print($lot_content);
