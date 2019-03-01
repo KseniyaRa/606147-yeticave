@@ -8,7 +8,7 @@ require_once('data.php');
 require_once('init.php');
 
 //получаем открытые лоты
-$lots_sql_query = 'SELECT lot.name AS title, initial_price, image, /*цена*/ c.name 
+$lots_sql_query = 'SELECT lot.id, lot.name AS title, initial_price, image, /*цена*/ c.name 
 FROM lot
 JOIN category c
 ON lot.category_id = c.id
