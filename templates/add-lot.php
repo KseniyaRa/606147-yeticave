@@ -56,12 +56,11 @@ require_once('functions.php');
           <label for="category">Категория</label>
           <select id="category" name="category" required>
             <option>Выберите категорию</option>
-            <option>Доски и лыжи</option>
-            <option>Крепления</option>
-            <option>Ботинки</option>
-            <option>Одежда</option>
-            <option>Инструменты</option>
-            <option>Разное</option>
+              
+              <?php foreach ($categories as $key): ?>
+              <option value="<?= $key['category_id']; ?>" > <?= $key['category_name']; ?> </option>
+              <?php endforeach; ?>
+              
           </select>
           <span class="form__error">Выберите категорию</span>
         </div>
