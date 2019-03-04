@@ -9,7 +9,7 @@ if (! isset($_SESSION['user'])) {
     exit();
 }
 
-//обработка формы н добавление лота
+//обработка формы на добавление лота
 $new_lot = [
     'lot_name' => 'Введите наименование лота',
     'category' => 'Выберите категорию',
@@ -20,6 +20,10 @@ $new_lot = [
 ];
 
 $error_count = 0;
+
+$errors[];
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+//здесь все что связанно с проверками заполнения
 
 // проверка введенных данных
 foreach ($new_lot as $nl => $val) {
@@ -51,12 +55,7 @@ foreach ($new_lot as $nl => $val) {
         $add_data['error'][$nl] = '';
     }
 }
-
-//сохраняем файл
-require 'app/save_img.php';
-$add_data['error']['img'] = $file_error;
-$add_data['uploaded'] = $uploaded_class;
-
+    
 //список категорий
 foreach ($category_list => $val) {
     if ($error_count && $data['category'] == $category_list) {
@@ -66,6 +65,11 @@ foreach ($category_list => $val) {
         $add_data[$category_list . '-sel'] = '';
     }
 }
+    
+//сохраняем файл
+require 'app/save_img.php';
+$add_data['error']['img'] = $file_error;
+$add_data['uploaded'] = $uploaded_class;
 
 // обработка ошибок
 if ($error_count) {
@@ -73,6 +77,8 @@ if ($error_count) {
     $add_data['invalid'] = ' form--invalid';
     $layout_data['title'] = 'Есть ошибки';
 }
+    if(count($errors)){
+//если ошибок нет пишем в базу и делаем редирект
 else {
     if (!isset($_POST['lot_name'])) {
         $add_data['invalid'] = '';
@@ -107,7 +113,8 @@ else {
         }
     }
 }
-
+}
+    
 //отображаем список категорий
 $footer_content = include_template('footer.php', [
     'promo' => $promo]
@@ -119,6 +126,6 @@ $add_content = include_template('lot.php', [
 'title' => $lot_title
 ]);
 
-print($add_content);
+print($add_content, $query_errors);
 
 ?>
