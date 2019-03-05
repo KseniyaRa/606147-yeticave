@@ -21,99 +21,93 @@ $new_lot = [
 
 $error_count = 0;
 
-$errors[];
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
-//здесь все что связанно с проверками заполнения
+$errors[]; 
 
-// проверка введенных данных
-foreach ($new_lot as $nl => $val) {
-    $add_data[$nl]['value'] = '';
-    $error = false;
-    
-    if (isset($_POST[$nl])) {
-        $data[$nl] = strip_tags(trim($_POST[$nl]));
-        
-        if ($data[$nl]) {
-            $add_data[$nl]['value'] = $data[$nl];
-            
-            if (($nl == 'initial_price' || $nl == 'step_rate') && ! is_numeric($data[$nl])) {
-                $error = true;
-            }
-        }
-        else {
-            $error = true;
-        }
-    }
-    
-    if ($error) {
-        $error_count ++;
-        $add_data[$nl]['invalid'] = ' form__item--invalid';
-        $add_data['error'][$nl] = $add_data['error'][$nl] ?? $val;
-    }
-    else {
-        $add_data[$nl]['invalid'] = '';
-        $add_data['error'][$nl] = '';
-    }
+if ($error) {
+    $error_count ++;
+    $add_data[$nl]['invalid'] = ' form__item--invalid';
+    $add_data['error'][$nl] = $add_data['error'][$nl] ?? $val;
 }
-    
-//список категорий
-foreach ($category_list => $val) {
-    if ($error_count && $data['category'] == $category_list) {
-        $add_data[$category_list . '-sel'] = ' selected';
-    }
-    else {
-        $add_data[$category_list . '-sel'] = '';
-    }
+else {
+    $add_data[$nl]['invalid'] = '';
+    $add_data['error'][$nl] = '';
 }
-    
-//сохраняем файл
-require 'app/save_img.php';
-$add_data['error']['img'] = $file_error;
-$add_data['uploaded'] = $uploaded_class;
 
-// обработка ошибок
-if ($error_count) {
+if(count($errors)){
     $add_data['error_main'] = 'Пожалуйста, исправьте ошибки в форме.';
     $add_data['invalid'] = ' form--invalid';
     $layout_data['title'] = 'Есть ошибки';
 }
-    if(count($errors)){
-//если ошибок нет пишем в базу и делаем редирект
 else {
-    if (!isset($_POST['lot_name'])) {
-        $add_data['invalid'] = '';
-        $add_data['error_main'] = '';
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        foreach ($new_lot as $nl => $val) {
+            $add_data[$nl]['value'] = '';
+            $error = false;
+            
+            if (isset($_POST[$nl])) {
+                $data[$nl] = strip_tags(trim($_POST[$nl]));
+                
+                if ($data[$nl]) {
+                    $add_data[$nl]['value'] = $data[$nl];
+                    
+                    if (($nl == 'initial_price' || $nl == 'step_rate') && ! is_numeric($data[$nl])) {
+                        $error = true;
+                    }
+                }
+                else {
+                    $error = true;
+                }
+            }
+        }
+        
+        foreach ($category_list => $val) {
+            if ($error_count && $data['category'] == $category_list) {
+                $add_data[$category_list . '-sel'] = ' selected';
+            }
+            else {
+                $add_data[$category_list . '-sel'] = '';
+            }
+        }
     }
+    
     else {
-        $sql = 'INSERT INTO lots ('
-        . 'name, discription, initial_price, step_rate, image, '
-        . 'category_id, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)';
-        $query_data = [
-            $data['lot_name'],
-            $data['discription'],
-            floor($data['initial_price']),
-            floor($data['step_rate']),
-            $time,
-            $data['lot-date'],
-            $_SESSION['url'],
-            $data['category'],
-            $_SESSION['user']['id']
-        ];
-        
-        $stmt = db_get_prepare_stmt($con, $sql, $query_data);
-        $result = mysqli_stmt_execute($stmt);
-        
-        if (!$result) {
-            $query_errors[] = 'Регистрация невозможна по техническим причинам.';
+        if (!isset($_POST['lot_name'])) {
+            $add_data['invalid'] = '';
+            $add_data['error_main'] = '';
         }
         else {
-            header('Location: lot.php?id=' . mysqli_insert_id($con));
-            unset($_SESSION['url']);
-            exit();
+            $sql = 'INSERT INTO lots (' . 'name, discription, initial_price, step_rate, image, '
+        . 'category_id, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)';
+            $query_data = [
+                $data['lot_name'],
+                $data['discription'],
+                floor($data['initial_price']),
+                floor($data['step_rate']),
+                $time,
+                $data['lot-date'],
+                $_SESSION['url'],
+                $data['category'],
+                $_SESSION['user']['id']
+            ];
+            
+            $stmt = db_get_prepare_stmt($con, $sql, $query_data);
+            $result = mysqli_stmt_execute($stmt);
+            
+            if (!$result) {
+                $query_errors[] = 'Регистрация невозможна по техническим причинам.';
+            }
+            else {
+                header('Location: lot.php?id=' . mysqli_insert_id($con));
+                unset($_SESSION['url']);
+                exit();
+            }
         }
     }
 }
-}
+
+require 'app/save_img.php';
+$add_data['error']['img'] = $file_error;
+$add_data['uploaded'] = $uploaded_class;
     
 //отображаем список категорий
 $footer_content = include_template('footer.php', [
@@ -126,6 +120,6 @@ $add_content = include_template('lot.php', [
 'title' => $lot_title
 ]);
 
-print($add_content, $query_errors);
+print($add_content, $errors);
 
 ?>
