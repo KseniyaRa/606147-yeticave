@@ -2,6 +2,21 @@
 require_once('functions.php');
 require_once('data.php');
 require_once('init.php');
+/*
+// проверям, что пользователь зарегестрирован
+if (! isset($_SESSION['user'])) {
+    http_response_code(403);
+    exit();
+}*/
+
+//получаем список категорий
+    $sql = 'SELECT `id`, `name` FROM category';
+    $result = mysqli_query($con, $sql);
+    
+    
+    if ($result) {
+    $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
 
 $errors = array();
 
@@ -13,11 +28,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     'initial_price' => 'Введите начальную цену',
     'step_rate' => 'Введите шаг ставки',
     'completion_date' => 'Введите дату завершения торгов'
-    ];
+    ];    
     
     //проверяем каждый пункт формы
         foreach ($new_lot as $nl => $val) {
-        if ($_POST['category'] == 'categories') {
+        if (in_array($_POST[category], $categories)) {
             $errors['category'] = 'Выберите категорию:';
         }
         if (empty($_POST[$val])) {
